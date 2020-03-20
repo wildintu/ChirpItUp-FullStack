@@ -15,6 +15,7 @@ let getChirp = id => {
   return Object.assign({}, chirps[id]); //create a copy and return it
 };
 
+
 let createChirp = chirp => {
   chirps[chirps.nextid++] = chirp;
   writeChirps();

@@ -1,12 +1,13 @@
 import * as express from 'express';
 import chirpsStore from './chirpstore';
 import db from './db';
+import index from './db/index'
 
 const router = express.Router();
 
-// router.get('/api/chirps', async(req, res) => {
+// router.get('/api/posts', async(req, res) => {
 //     try{
-//         res.json(await db.chirps.all());
+//         res.json(await db.posts.all());
 //     }catch(e) {
 //         console.log(e);
 //         res.sendStatus(500);
@@ -22,14 +23,24 @@ router.get('/api/chirps/:id?', (req, res) => {
     }
 })
 
+
+router.get('/api/posts/:id?', (req, res) => {
+    let id = req.params.id;
+    if (id) {
+        res.json(db.getPost(id));
+    } else {
+        res.send(db.getPosts());
+    }
+})
+
 // router.get('/api/posts/:id?', (req, res) => {
 //     let id = req.params.id;
 //     if (id) {
-//         db.GetChirp(id).then((result) => {
+//         db.getPost(id).then((result) => {
 //             res.send(result);
 //         });
 //     } else {
-//         db.GetChirps().then((result) => {
+//         db.getPosts().then((result) => {
 //             res.send(result);
 //         });
 //     }

@@ -11,7 +11,7 @@ const App: React.FC<IAppProps> = props => {
       <Switch>
         <Route exact path="/Forms" component={Forms} />
         <Route exact path="/SingleChirp/:id/admin" component={SingleChirp} />
-        <Route exact path="/Posts" component={Posts} />
+        <Route exact path="/Posts" component={ Posts } />
         <Route path="/" component={Chirps} />
       </Switch>
     </Router>

@@ -16,4 +16,23 @@ router.get('/api/posts', async(req, res) => {
     }
 })
 
+router.get('api/posts/:id?', async (req, res) => {
+    let id = req.params.id;
+    if (id) {
+        try {
+            res.json((await db.posts.one(id))[0])
+        } catch (err) {
+            if (err) throw err;
+            res.sendStatus(500);
+        }
+    } else {
+        try {
+            res.json(await db.posts.all());
+        } catch (err) {
+            console.log(err)
+            res.sendStatus(500)
+        }
+    }
+})
+
 export default router;
