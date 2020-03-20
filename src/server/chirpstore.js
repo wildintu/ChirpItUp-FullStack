@@ -1,4 +1,6 @@
 import fs from "fs";
+import db from './db';
+
 let chirps = { nextid: 0 };
 
 if (fs.existsSync("chirps.json")) {
