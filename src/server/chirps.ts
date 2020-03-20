@@ -14,6 +14,11 @@ router.get('/api/chirps/:id?', (req, res) => {
     }
 })
 
+router.post('/api/chirps/:id?', (req, res) => {
+    chirpsStore.CreateChirp(req.body);
+    res.sendStatus(200);
+})
+
 router.put('/api/chirps/:id?', (req, res) => {
     let id = req.params.id
     if (id) {
