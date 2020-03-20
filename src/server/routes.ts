@@ -7,16 +7,7 @@ router.get('/api/hello', (req, res, next) => {
     res.json('World');
 });
 
-router.get('/api/posts', async(req, res) => {
-    try{
-        res.json(await db.posts.all());
-    }catch(e) {
-        console.log(e);
-        res.sendStatus(500);
-    }
-})
-
-router.get('api/posts/:id?', async (req, res) => {
+router.get('/api/posts/:id?', async (req, res) => {
     let id = req.params.id;
     if (id) {
         try {
@@ -32,6 +23,16 @@ router.get('api/posts/:id?', async (req, res) => {
             console.log(err)
             res.sendStatus(500)
         }
+    }
+})
+
+router.post('/chirps', async (req, res) => {
+    let User = parseInt(req.body.user);
+    let Text = req.body.text;
+    try {
+        res.json(await db.posts.post(User, Text));
+    } catch (err) {
+        res.sendStatus(500);
     }
 })
 
