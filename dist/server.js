@@ -86,30 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/server/chirps.ts":
-/*!******************************!*\
-  !*** ./src/server/chirps.ts ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar express = __webpack_require__(/*! express */ \"express\");\nvar chirpstore_1 = __webpack_require__(/*! ./chirpstore */ \"./src/server/chirpstore.js\");\nvar router = express.Router();\nrouter.get('/api/chirps/:id?', function (req, res) {\n    var id = req.params.id;\n    if (id) {\n        res.json(chirpstore_1.default.GetChirp(id));\n    }\n    else {\n        res.send(chirpstore_1.default.GetChirps());\n    }\n});\nrouter.post('/api/chirps/:id?', function (req, res) {\n    chirpstore_1.default.CreateChirp(req.body);\n    res.sendStatus(200);\n});\nrouter.put('/api/chirps/:id?', function (req, res) {\n    var id = req.params.id;\n    if (id) {\n        res.json(chirpstore_1.default.UpdateChirp(id, req.body));\n        res.sendStatus(200);\n    }\n    else {\n        res.send(chirpstore_1.default.UpdateChirp());\n    }\n});\nrouter.delete('/api/chirps/:id?', function (req, res) {\n    var id = req.params.id;\n    if (id) {\n        res.json(chirpstore_1.default.DeleteChirp(id));\n    }\n    else {\n        res.send(chirpstore_1.default.DeleteChirp());\n    }\n});\nexports.default = router;\n\n\n//# sourceURL=webpack:///./src/server/chirps.ts?");
-
-/***/ }),
-
-/***/ "./src/server/chirpstore.js":
-/*!**********************************!*\
-  !*** ./src/server/chirpstore.js ***!
-  \**********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! fs */ \"fs\");\n/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(fs__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _db__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./db */ \"./src/server/db/index.ts\");\n/* harmony import */ var _db__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_db__WEBPACK_IMPORTED_MODULE_1__);\n\n\n\nlet chirps = { nextid: 0 };\n\nif (fs__WEBPACK_IMPORTED_MODULE_0___default.a.existsSync(\"chirps.json\")) {\n  chirps = JSON.parse(fs__WEBPACK_IMPORTED_MODULE_0___default.a.readFileSync(\"chirps.json\"));\n}\n\nlet getChirps = () => {\n  return Object.assign({}, chirps); //create a copy and return it\n};\n\nlet getChirp = id => {\n  return Object.assign({}, chirps[id]); //create a copy and return it\n};\n\n\nlet createChirp = chirp => {\n  chirps[chirps.nextid++] = chirp;\n  writeChirps();\n};\n\nlet updateChirp = (id, chirp) => {\n  chirps[id] = chirp;\n  writeChirps();\n};\n\nlet deleteChirp = id => {\n  delete chirps[id];\n  writeChirps();\n};\n\nlet writeChirps = () => {\n  fs__WEBPACK_IMPORTED_MODULE_0___default.a.writeFileSync(\"chirps.json\", JSON.stringify(chirps));\n};\n\nlet chirpsStore = {\n  CreateChirp: createChirp,\n  DeleteChirp: deleteChirp,\n  GetChirps: getChirps,\n  GetChirp: getChirp,\n  UpdateChirp: updateChirp\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (chirpsStore);\n\n\n//# sourceURL=webpack:///./src/server/chirpstore.js?");
-
-/***/ }),
-
 /***/ "./src/server/db/index.ts":
 /*!********************************!*\
   !*** ./src/server/db/index.ts ***!
@@ -154,7 +130,7 @@ eval("\nvar __awaiter = (this && this.__awaiter) || function (thisArg, _argument
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar express = __webpack_require__(/*! express */ \"express\");\nvar routes_1 = __webpack_require__(/*! ./routes */ \"./src/server/routes.ts\");\nvar chirps_1 = __webpack_require__(/*! ./chirps */ \"./src/server/chirps.ts\");\nvar cors = __webpack_require__(/*! cors */ \"cors\");\nvar app = express();\napp.use(cors());\napp.use(express.json());\napp.use(express.static('public'));\napp.use(routes_1.default);\napp.use(chirps_1.default);\nvar port = process.env.PORT || 3000;\napp.listen(port, function () { return console.log(\"Server listening on port: \" + port); });\n\n\n//# sourceURL=webpack:///./src/server/server.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar express = __webpack_require__(/*! express */ \"express\");\nvar routes_1 = __webpack_require__(/*! ./routes */ \"./src/server/routes.ts\");\nvar cors = __webpack_require__(/*! cors */ \"cors\");\nvar app = express();\napp.use(cors());\napp.use(express.json());\napp.use(express.static('public'));\napp.use(routes_1.default);\nvar port = process.env.PORT || 3000;\napp.listen(port, function () { return console.log(\"Server listening on port: \" + port); });\n\n\n//# sourceURL=webpack:///./src/server/server.ts?");
 
 /***/ }),
 
@@ -177,17 +153,6 @@ eval("module.exports = require(\"cors\");\n\n//# sourceURL=webpack:///external_%
 /***/ (function(module, exports) {
 
 eval("module.exports = require(\"express\");\n\n//# sourceURL=webpack:///external_%22express%22?");
-
-/***/ }),
-
-/***/ "fs":
-/*!*********************!*\
-  !*** external "fs" ***!
-  \*********************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("module.exports = require(\"fs\");\n\n//# sourceURL=webpack:///external_%22fs%22?");
 
 /***/ }),
 

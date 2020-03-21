@@ -2,61 +2,61 @@ import React, { useState, useEffect } from "react";
 import { useParams, RouteComponentProps, Link } from "react-router-dom";
 import Fetch from "./Fetch";
 
-let SingleChirp: React.FC<ISingleChirpProps> = ({
+let SinglePost: React.FC<ISinglePostProps> = ({
   match: {
     params: { id }
   }
 }) => {
-  const [name, setName] = useState("");
-  const [msg, setMsg] = useState("");
+  const [user, setUser] = useState("");
+  const [text, setText] = useState("");
 
   let handleChange = (e: string, id: string) => {
-    if (id === "name") {
-      setName(e);
-    } else if (id === "msg") {
-      setMsg(e);
+    if (id === "user") {
+      setUser(e);
+    } else if (id === "text") {
+      setText(e);
     }
   };
 
   let handleClick = () => {
-    if (name !== "name" && msg !== "msg") {
+    if (user !== "user" && text !== "text") {
       Fetch(
         {
-          user: name,
-          text: msg
+          user: user,
+          text: text
         },
-        `/api/chirps/${id}`,
+        `/api/Posts/${id}`,
         "PUT"
       );
     }
   };
 
   let handleDelete = () => {
-    if (name !== "name" && msg !== "msg") {
+    if (user !== "user" && text !== "text") {
       Fetch(
         {
-          user: name,
-          text: msg
+          user: user,
+          text: text
         },
-        `/api/chirps/${id}`,
+        `/api/Posts/${id}`,
         "DELETE"
       );
     }
   };
 
-  let chirpChirp = async () => {
+  let postPost = async () => {
     try {
-      let res = await fetch(`/api/chirps/${id}/`);
-      let achirp = await res.json();
-      setName(achirp.user);
-      setMsg(achirp.text);
+      let res = await fetch(`/api/Posts/${id}`);
+      let apost = await res.json();
+      setUser(apost.user);
+      setText(apost.text);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    chirpChirp();
+    postPost();
   }, []);
 
   return (
@@ -66,11 +66,11 @@ let SingleChirp: React.FC<ISingleChirpProps> = ({
         <input
           type="text"
           className="form-control"
-          id="name"
-          value={name}
-          onChange={e => handleChange(e.target.value, "name")}
+          id="user"
+          value={user}
+          onChange={e => handleChange(e.target.value, "user")}
         />
-        <small id="nameMsg" className="form-text text-muted">
+        <small id="userMsg" className="form-text text-muted">
           We plan to stalk you.
         </small>
       </div>
@@ -79,9 +79,9 @@ let SingleChirp: React.FC<ISingleChirpProps> = ({
         <input
           type="text"
           className="form-control"
-          id="msg"
-          value={msg}
-          onChange={e => handleChange(e.target.value, "msg")}
+          id="text"
+          value={text}
+          onChange={e => handleChange(e.target.value, "text")}
         />
       </div>
       <Link to="/">
@@ -108,9 +108,9 @@ let SingleChirp: React.FC<ISingleChirpProps> = ({
   );
 };
 
-export interface ISingleChirpProps
+export interface ISinglePostProps
   extends RouteComponentProps<{ id: string }> {}
 
-export interface ISingleChirpState {}
+export interface ISinglePostState {}
 
-export default SingleChirp;
+export default SinglePost;
