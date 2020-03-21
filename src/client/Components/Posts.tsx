@@ -16,19 +16,17 @@ const Posts: React.FC<IPostsProps> = props => {
   
     let postArray = (post: any) => {
       let keys = Object.keys(post);
-      let arr = keys.map(element => {
+      let arr = keys.map((element) => {
         return post[element];
       });
   
-      // arr.splice(-1, 1);
-  
-      let cards = arr.map((element, index) => {
+      let cards: JSX.Element[] = arr.map((element, index) => {
         return (
           <div className="card col-sm-4" key={index}>
             <div className="card-body">
               <h5 className="card-title">{element.user}</h5>
               <p className="card-text">{element.text}</p>
-              <Link to={`/Posts/${keys[index]}/admin`}>
+              <Link to={`/Posts/${element.id}/admin`}>
                 <button
                   type="button"
                   className="btn btn-info"
@@ -40,7 +38,6 @@ const Posts: React.FC<IPostsProps> = props => {
           </div>
         );
       });
-      //this.setState({chirp: cards})
       setPost(cards);
     };
   
