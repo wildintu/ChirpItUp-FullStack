@@ -130,7 +130,7 @@ eval("\nvar __awaiter = (this && this.__awaiter) || function (thisArg, _argument
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar express = __webpack_require__(/*! express */ \"express\");\nvar routes_1 = __webpack_require__(/*! ./routes */ \"./src/server/routes.ts\");\nvar cors = __webpack_require__(/*! cors */ \"cors\");\nvar app = express();\napp.use(cors());\napp.use(express.json());\napp.use(express.static('public'));\napp.use(routes_1.default);\nvar port = process.env.PORT || 3000;\napp.listen(port, function () { return console.log(\"Server listening on port: \" + port); });\n\n\n//# sourceURL=webpack:///./src/server/server.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar express = __webpack_require__(/*! express */ \"express\");\nvar routes_1 = __webpack_require__(/*! ./routes */ \"./src/server/routes.ts\");\nvar cors = __webpack_require__(/*! cors */ \"cors\");\nvar path = __webpack_require__(/*! path */ \"path\");\nvar app = express();\napp.use(cors());\napp.use(express.json());\napp.use(express.static('public'));\napp.use(routes_1.default);\napp.get([\"/\", \"/Forms\", \"/Posts/:id/admin\"], function (req, res) { return res.sendFile(path.join(__dirname, '../public', 'index.html')); });\nvar port = process.env.PORT || 3000;\napp.listen(port, function () { return console.log(\"Server listening on port: \" + port); });\n\n\n//# sourceURL=webpack:///./src/server/server.ts?");
 
 /***/ }),
 
@@ -164,6 +164,17 @@ eval("module.exports = require(\"express\");\n\n//# sourceURL=webpack:///externa
 /***/ (function(module, exports) {
 
 eval("module.exports = require(\"mysql\");\n\n//# sourceURL=webpack:///external_%22mysql%22?");
+
+/***/ }),
+
+/***/ "path":
+/*!***********************!*\
+  !*** external "path" ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"path\");\n\n//# sourceURL=webpack:///external_%22path%22?");
 
 /***/ })
 
